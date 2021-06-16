@@ -1,3 +1,3 @@
 call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\Tools\VsDevCmd.bat"
-installutil "C:\Users\clark\Documents\Projects\Repoll\RepollService\bin\Debug\RepollService.exe"
+installutil "%~dp0RepollService\bin\Debug\RepollService.exe"
 PAUSE
