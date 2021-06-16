@@ -28,7 +28,15 @@ namespace RepollService
             InitializeComponent();
             repollEventLog = new EventLog();
             RepollEventLogger.Initialize(ref repollEventLog);
+        }
 
+        protected override void OnStart(string[] args)
+        {
+            serviceStatus = new ServiceStatus();
+            serviceStatus.dwCurrentState = ServiceState.SERVICE_START_PENDING;
+            serviceStatus.dwWaitHint = 100000;
+            serviceStatus.dwCurrentState = ServiceState.SERVICE_RUNNING;
+            SetServiceStatus(this.ServiceHandle, ref serviceStatus);
             try
             {
                 if (!Directory.Exists(directoryPath))
@@ -49,16 +57,6 @@ namespace RepollService
             {
                 repollEventLog.WriteEntry(e.Message, EventLogEntryType.Error, eventId++);
             }
-        }
-
-        protected override void OnStart(string[] args)
-        {
-            serviceStatus = new ServiceStatus();
-            serviceStatus.dwCurrentState = ServiceState.SERVICE_START_PENDING;
-            serviceStatus.dwWaitHint = 100000;
-            serviceStatus.dwCurrentState = ServiceState.SERVICE_RUNNING;
-            SetServiceStatus(this.ServiceHandle, ref serviceStatus);
-
             if (args.Length > 0)
             {
                 repos.AddRange(args);
