@@ -9,25 +9,46 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
 using System.Runtime.InteropServices;
+using System.IO;
 
 namespace RepollService
 {
+    public enum SimpleServiceCustomCommands
+    { StopWorker = 128, RestartWorker, CheckWorker };
     public partial class RepollService : ServiceBase
     {
+        private string filePath = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData) + @"Repoll\repos.json";
+        private List<string> repos = new List<string>();
         private int eventId = 1;
         private ServiceStatus serviceStatus;
-        public RepollService()
+        public RepollService(string[] args)
         {
             InitializeComponent();
-
-            repollEventLog = new System.Diagnostics.EventLog();
-            if (!System.Diagnostics.EventLog.SourceExists("MySource"))
+            repollEventLog = new EventLog();
+            RepollEventLogger.Initialize(ref repollEventLog);
+/*
+            if (!File.Exists(filePath))
             {
-                System.Diagnostics.EventLog.CreateEventSource(
-                    "MySource", "MyNewLog");
+                File.Create(filePath);
+                repollEventLog.WriteEntry("Created Repo File", EventLogEntryType.Information, eventId++);
             }
-            repollEventLog.Source = "RepollSource";
-            repollEventLog.Log = "RepollLog";
+*/
+        }
+
+        protected override void OnCustomCommand(int command)
+        {
+            repollEventLog.WriteEntry("Command Recieved", EventLogEntryType.Information, eventId++);
+            switch (command)
+            {
+                case (int)SimpleServiceCustomCommands.RestartWorker:
+                    repollEventLog.WriteEntry("RestartWorker", EventLogEntryType.Information, eventId++);
+                    break;
+                case (int)SimpleServiceCustomCommands.CheckWorker:
+                    repollEventLog.WriteEntry("CheckWorker", EventLogEntryType.Information, eventId++);
+                    break;
+                default:
+                    break;
+            }
         }
 
         protected override void OnStart(string[] args)
@@ -41,20 +62,20 @@ namespace RepollService
             serviceStatus.dwCurrentState = ServiceState.SERVICE_RUNNING;
             SetServiceStatus(this.ServiceHandle, ref serviceStatus);
         }
-/*        
-        protected override void OnPause()
-        {
-            repollEventLog.WriteEntry("In OnContinue.");
-        }
-        protected override void OnContinue()
-        {
-            repollEventLog.WriteEntry("In OnContinue.");
-        }
-        protected override void OnShutdown()
-        {
-            repollEventLog.WriteEntry("In OnContinue.");
-        }
-*/
+        /*        
+                protected override void OnPause()
+                {
+                    repollEventLog.WriteEntry("In OnContinue.");
+                }
+                protected override void OnContinue()
+                {
+                    repollEventLog.WriteEntry("In OnContinue.");
+                }
+                protected override void OnShutdown()
+                {
+                    repollEventLog.WriteEntry("In OnContinue.");
+                }
+        */
         protected override void OnStop()
         {
             repollEventLog.WriteEntry("In OnStop.");
