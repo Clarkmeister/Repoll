@@ -10,6 +10,8 @@ using System.Threading.Tasks;
 using System.Timers;
 using System.Runtime.InteropServices;
 using System.IO;
+using System.ServiceModel;
+using RepollInterfaces;
 
 namespace RepollService
 {
@@ -22,6 +24,7 @@ namespace RepollService
         private static List<string> repos = new List<string>();
         private int eventId = 1;
         private static ServiceStatus serviceStatus = new ServiceStatus();
+        ServiceHost host;
 
         public RepollService(string[] args)
         {
@@ -37,30 +40,22 @@ namespace RepollService
             serviceStatus.dwWaitHint = 100000;
             serviceStatus.dwCurrentState = ServiceState.SERVICE_RUNNING;
             SetServiceStatus(this.ServiceHandle, ref serviceStatus);
+
+            //Start Service Listener
             try
             {
-                if (!Directory.Exists(directoryPath))
-                {
-                    Directory.CreateDirectory(directoryPath);
-                }
-                if (!File.Exists(filePath))
-                {
-                    using (var file = File.Create(filePath)) { }
-                }
-                var temp = File.ReadAllText(filePath).ToObject<List<string>>();
-                if (temp != null)
-                {
-                    repos = temp;
-                }
+                var uri = new Uri("net.tcp://localhost:6565/RepollService");
+                var binding = new NetTcpBinding(SecurityMode.None);
+                host = new ServiceHost(typeof(WCFRepollService), uri);
+                host.AddServiceEndpoint(typeof(IWCFRepollService), binding, "");
+                host.Open();
             }
-            catch (Exception e)
+            catch(Exception e)
             {
                 repollEventLog.WriteEntry(e.Message, EventLogEntryType.Error, eventId++);
             }
-            if (args.Length > 0)
-            {
-                repos.AddRange(args);
-            }
+
+            repollEventLog.WriteEntry("Server is Open", EventLogEntryType.Information, eventId++);
 
         }
 
@@ -68,21 +63,8 @@ namespace RepollService
         {
             UpdateServiceState(ServiceState.SERVICE_STOP_PENDING, 100000);
 
-            if(File.Exists(filePath))
-            {
-                try
-                {
-                    File.WriteAllText(filePath, repos.ToJsonString());
-                }
-                catch(Exception e)
-                {
-                    repollEventLog.WriteEntry(e.Message, EventLogEntryType.Error, eventId++);
-                }
-            }
-            else
-            {
-                repollEventLog.WriteEntry("repos.json no longer exists", EventLogEntryType.Warning, eventId++);
-            }
+            //Close Service Listener
+            host.Close();
 
             // Update the service state to Stopped.
             UpdateServiceState(ServiceState.SERVICE_STOPPED);
