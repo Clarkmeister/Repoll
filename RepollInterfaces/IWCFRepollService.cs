@@ -12,6 +12,6 @@ namespace RepollInterfaces
     public interface IWCFRepollService
     {
         [OperationContract]
-        List<string> ListProducts();
+        List<string> GitPull();
     }
 }

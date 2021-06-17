@@ -19,8 +19,8 @@ namespace RepollService
     { StopWorker = 128, RestartWorker, CheckWorker };
     public partial class RepollService : ServiceBase
     {
-        private string filePath = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData) + @"\Repoll\repos.json";
-        private string directoryPath = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData) + @"\Repoll";
+        private readonly string filePath = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData) + @"\Repoll\repos.json";
+        private readonly string directoryPath = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData) + @"\Repoll";
         private static List<string> repos = new List<string>();
         private int eventId = 1;
         private static ServiceStatus serviceStatus = new ServiceStatus();
@@ -29,17 +29,49 @@ namespace RepollService
         public RepollService(string[] args)
         {
             InitializeComponent();
+
+            //Create Event Logger
             repollEventLog = new EventLog();
-            RepollEventLogger.Initialize(ref repollEventLog);
+            if (!EventLog.SourceExists("MySource"))
+            {
+                EventLog.CreateEventSource(
+                    "MySource", "MyNewLog");
+            }
+            repollEventLog.Source = "RepollSource";
+            repollEventLog.Log = "RepollLog";
         }
 
         protected override void OnStart(string[] args)
         {
+            //Change Service Status
             serviceStatus = new ServiceStatus();
             serviceStatus.dwCurrentState = ServiceState.SERVICE_START_PENDING;
             serviceStatus.dwWaitHint = 100000;
             serviceStatus.dwCurrentState = ServiceState.SERVICE_RUNNING;
             SetServiceStatus(this.ServiceHandle, ref serviceStatus);
+
+            //Create Repo Storage File if it doesn't exist and read in any saved data.
+            try
+            {
+                if (!Directory.Exists(directoryPath))
+                {
+                    Directory.CreateDirectory(directoryPath);
+                }
+                if (!File.Exists(filePath))
+                {
+                    using (var file = File.Create(filePath)) { }
+                }
+                var temp = File.ReadAllText(filePath).ToObject<List<string>>();
+                if (temp != null)
+                {
+                    repos = temp;
+                }
+            }
+            catch (Exception e)
+            {
+                //Report any errors that occur to Event Viewer.
+                repollEventLog.WriteEntry(e.Message, EventLogEntryType.Error, eventId++);
+            }
 
             //Start Service Listener
             try
@@ -62,6 +94,23 @@ namespace RepollService
         protected override void OnStop()
         {
             UpdateServiceState(ServiceState.SERVICE_STOP_PENDING, 100000);
+
+            //Save to repos to file in JSON format.
+            if (File.Exists(filePath))
+            {
+                try
+                {
+                    File.WriteAllText(filePath, repos.ToJsonString());
+                }
+                catch (Exception e)
+                {
+                    repollEventLog.WriteEntry(e.Message, EventLogEntryType.Error, eventId++);
+                }
+            }
+            else
+            {
+                repollEventLog.WriteEntry("repos.json no longer exists", EventLogEntryType.Warning, eventId++);
+            }
 
             //Close Service Listener
             host.Close();

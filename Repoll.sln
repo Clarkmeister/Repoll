@@ -5,8 +5,6 @@ VisualStudioVersion = 16.0.31410.357
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RepollService", "RepollService\RepollService.csproj", "{FB36EDF5-554D-4586-9CCB-8AEA7C1BF823}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RepollClient", "RepollClient\RepollClient.csproj", "{D091993F-7A72-43E6-B327-B6AF74B9752F}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RepollInterfaces", "RepollInterfaces\RepollInterfaces.csproj", "{7C1171FD-5AA8-4FFA-8B61-EAD8E198E5A6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPFRepollClient", "WPFRepollClient\WPFRepollClient.csproj", "{15BB1778-BE18-4348-AF57-147448B69A37}"
@@ -21,10 +19,6 @@ Global
 		{FB36EDF5-554D-4586-9CCB-8AEA7C1BF823}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FB36EDF5-554D-4586-9CCB-8AEA7C1BF823}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FB36EDF5-554D-4586-9CCB-8AEA7C1BF823}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D091993F-7A72-43E6-B327-B6AF74B9752F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D091993F-7A72-43E6-B327-B6AF74B9752F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D091993F-7A72-43E6-B327-B6AF74B9752F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D091993F-7A72-43E6-B327-B6AF74B9752F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7C1171FD-5AA8-4FFA-8B61-EAD8E198E5A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7C1171FD-5AA8-4FFA-8B61-EAD8E198E5A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7C1171FD-5AA8-4FFA-8B61-EAD8E198E5A6}.Release|Any CPU.ActiveCfg = Release|Any CPU

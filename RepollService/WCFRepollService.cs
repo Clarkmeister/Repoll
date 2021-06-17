@@ -11,9 +11,9 @@ namespace RepollService
     // NOTE: You can use the "Rename" command on the "Refactor" menu to change the class name "WCFRepollService" in both code and config file together.
     public class WCFRepollService : IWCFRepollService
     {
-        public List<string> ListProducts()
+        public List<string> GitPull()
         {
-            return new List<string>(new string[] { "Hello", "World" });
+            ;
         }
     }
 }

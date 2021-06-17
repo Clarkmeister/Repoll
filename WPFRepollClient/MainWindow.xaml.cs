@@ -56,7 +56,7 @@ namespace WPFRepollClient
             var channel = new ChannelFactory<IWCFRepollService>(binding);
             var endpoint = new EndpointAddress(uri);
             var proxy = channel.CreateChannel(endpoint);
-            products = proxy.ListProducts();
+            products = proxy.GitPull();
 
             foreach (var product in products)
             {
