@@ -1,4 +1,4 @@
-# Repoll
+# Repoll (WIP)
 A service that updates selected git repositories on system startup.
 
 Current Setup Instructions:
