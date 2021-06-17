@@ -5,7 +5,7 @@ Current Windows Setup Instructions:
 
 1. Build Project
 2. Run (As Administrator) InstallService.bat
-3. Run WPFRepollClient.exe from WPFRepollClient bin directories or Run from Visual Studio
+3. Run (As Administrator) WPFRepollClient.exe from WPFRepollClient bin directories or Run from Visual Studio (As Administrator)
 
 Current Windows Uninstall Instructions:
 
