@@ -10,3 +10,5 @@ Current Windows Setup Instructions:
 Current Windows Uninstall Instructions:
 
 1. Run (As Administrator) UninstallService.bat
+
+*Administrator rights needed to start/stop/install/uninstall Windows Service
