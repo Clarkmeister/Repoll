@@ -21,7 +21,7 @@ namespace RepollService
     {
         private readonly string filePath = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData) + @"\Repoll\repos.json";
         private readonly string directoryPath = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData) + @"\Repoll";
-        private static List<string> repos = new List<string>();
+        public static List<Tuple<string,string>> repos = new List<Tuple<string,string>>();
         private int eventId = 1;
         private static ServiceStatus serviceStatus = new ServiceStatus();
         ServiceHost host;
@@ -47,8 +47,6 @@ namespace RepollService
             serviceStatus = new ServiceStatus();
             serviceStatus.dwCurrentState = ServiceState.SERVICE_START_PENDING;
             serviceStatus.dwWaitHint = 100000;
-            serviceStatus.dwCurrentState = ServiceState.SERVICE_RUNNING;
-            SetServiceStatus(this.ServiceHandle, ref serviceStatus);
 
             //Create Repo Storage File if it doesn't exist and read in any saved data.
             try
@@ -61,7 +59,7 @@ namespace RepollService
                 {
                     using (var file = File.Create(filePath)) { }
                 }
-                var temp = File.ReadAllText(filePath).ToObject<List<string>>();
+                var temp = File.ReadAllText(filePath).ToObject<List<Tuple<string,string>>>();
                 if (temp != null)
                 {
                     repos = temp;
@@ -88,6 +86,8 @@ namespace RepollService
             }
 
             repollEventLog.WriteEntry("Server is Open", EventLogEntryType.Information, eventId++);
+            serviceStatus.dwCurrentState = ServiceState.SERVICE_RUNNING;
+            SetServiceStatus(this.ServiceHandle, ref serviceStatus);
 
         }
 

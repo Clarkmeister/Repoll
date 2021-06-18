@@ -5,10 +5,50 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPFRepollClient"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Repoll" Topmost="True"
+        Height="500" Width="800" Background="White"  WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize" Loaded="MainWindow_isLoaded">
     <Grid>
-        <Button Name="TestButton" Content="Test" HorizontalAlignment="Left" Margin="584,191,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
-        <TextBox Name="TestBox" HorizontalAlignment="Left" Height="85" Margin="158,162,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.6*"/>
+            <ColumnDefinition Width="0.4*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.1*"/>
+            <RowDefinition Height="0.5*"/>
+            <RowDefinition Height="0.4*"/>
+        </Grid.RowDefinitions>
+        <Grid x:Name="GridTitleBar" Grid.Column="0" Grid.Row="0" Background="SteelBlue" Grid.ColumnSpan="2">
+            <Label Content="The Automatic Git Repo Updater" Foreground="White" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" FontStyle="Normal" FontWeight="Bold" FontSize="24" Padding="10,0,0,0"/>
+        </Grid>
+        <Grid x:Name="TopRightGrid" Grid.Row="0" Grid.Column="1">
+            <Label BorderThickness="1,0,0,0" BorderBrush="White" Foreground="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="24">
+                Tracked Repos
+            </Label>
+        </Grid>
+        <Grid x:Name="CenterLeftGrid" Grid.Column="0" Grid.Row="1" Background="AliceBlue">
+            <Label VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="5,5,0,0" FontSize="16" FontWeight="Bold">Add New Repo</Label>
+            <Label VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="58,40,0,0" FontSize="14">Nickname:</Label>
+            <TextBox Name="NicknameTextBox" Height="27" Width="325" Margin="135,42,0,0" Padding="4,4,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Text="" TextInput="NicknameTextBox_Text_Input"></TextBox>
+            <TextBox Name="DirectoryPathTextBox" Height="27" Width="325" Margin="135,77,0,0" Padding="4,4,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Text="" IsReadOnly="True"></TextBox>
+            <Button Name="AddDirectoryButton" BorderBrush="SteelBlue" BorderThickness="2" Background="LightGray" Height="30" Width="110" Content="Select Directory" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,75,0,0" Click="Add_Directory_Button_Click"/>
+            <Button Name="AddRepoButton" BorderBrush="SteelBlue" BorderThickness="2" Background="LightGray" Height="30" Width="110" Content="Add Repo" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,115,10,0" Click="AddRepo_Button_OnClick"/>
+            <Button Name="ManualUpdateButton" BorderBrush="SteelBlue" BorderThickness="2" Background="LightGray" Height="30" Width="110" Content="Manual Update" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="15,0,0,15" Click="ManualUpdate_Button_Click"/>
+        </Grid>
+        <Grid x:Name="CenterRightGrid" Grid.Column="1" Grid.Row="1" Background="LightGray" Grid.RowSpan="2">
+            <ScrollViewer Name="TrackedRepoView">
+                <StackPanel Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Name="TrackedRepoStack" CanVerticallyScroll="True"/>
+            </ScrollViewer>
+        </Grid>
+        <Grid x:Name="BottomLeftGrid" Grid.Row="2" Grid.Column="0">
+            <Grid Background="SteelBlue" Height="30" VerticalAlignment="Top" HorizontalAlignment="Stretch">
+                <Label VerticalAlignment="Center" HorizontalAlignment="Left" Margin="7,0,0,0" FontSize="14" Foreground="White">Output</Label>
+            </Grid>
+            <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="0,30,0,0">
+                <ScrollViewer Name="OutputScrollViewer">
+                    <TextBlock Background="Black" Foreground="White" Name="OutputTextBlock" FontSize="12" FontFamily="Consolas" VerticalAlignment="Stretch" TextWrapping="Wrap" HorizontalAlignment="Stretch" Padding="4,4,4,0" Text=""/>
+                </ScrollViewer>
+            </Grid>
+        </Grid>
 
     </Grid>
 </Window>

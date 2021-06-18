@@ -12,6 +12,10 @@ namespace RepollInterfaces
     public interface IWCFRepollService
     {
         [OperationContract]
+        List<Tuple<string,string>> GetTrackedRepos();
+        [OperationContract]
+        bool SubmitTrackedRepo(string nickname, string directory);
+        [OperationContract]
         List<string> GitPull();
     }
 }

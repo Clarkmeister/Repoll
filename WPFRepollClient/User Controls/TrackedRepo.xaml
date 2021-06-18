@@ -1,0 +1,13 @@
+﻿<UserControl x:Class="WPFRepollClient.User_Controls.TrackedRepo"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WPFRepollClient.User_Controls"
+             MinHeight="45" MinWidth="125" HorizontalAlignment="Stretch">
+    <Grid HorizontalAlignment="Stretch" Background="#376FA6">
+        <Label Name="RepoNameLabel" Foreground="White" FontSize="16" Margin="0,0,50,0" Content="RepoName" VerticalContentAlignment="Top" HorizontalContentAlignment="Left" Padding="3,0,0,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+        <Label Name="RepoDirectoryLabel" Foreground="White" Margin="0,0,50,0" Content="RepoDirectory" VerticalContentAlignment="Bottom" HorizontalContentAlignment="Left" Padding="3,0,0,6" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+        <Button Name="RepoRemoveButton"  Width="50" Content="X" VerticalAlignment="Stretch" HorizontalAlignment="Right" Click="RepoRemoveButton_Click"/>
+    </Grid>
+</UserControl>
