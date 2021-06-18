@@ -15,8 +15,6 @@ using RepollInterfaces;
 
 namespace RepollService
 {
-    public enum SimpleServiceCustomCommands
-    { StopWorker = 128, RestartWorker, CheckWorker };
     public partial class RepollService : ServiceBase
     {
         private readonly string filePath = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData) + @"\Repoll\repos.json";
