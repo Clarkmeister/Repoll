@@ -80,10 +80,5 @@ namespace RepollService
                 return false;
             }
         }
-
-        public string TestCmd()
-        {
-            return RunCommand.RunCmdAndGetOutput("echo Repoll: && cd C:\\Users\\clark\\Documents\\Projects\\Repoll && git pull");
-        }
     }
 }

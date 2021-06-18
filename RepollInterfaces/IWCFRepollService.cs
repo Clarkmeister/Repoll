@@ -19,7 +19,5 @@ namespace RepollInterfaces
         Tuple<bool, string> RemoveTrackedRepo(Tuple<string, string> tuple);
         [OperationContract]
         string ManualUpdate(string cmd);
-        [OperationContract]
-        string TestCmd();
     }
 }

@@ -33,7 +33,6 @@
             <Button Name="AddDirectoryButton" BorderBrush="SteelBlue" BorderThickness="2" Background="LightGray" Height="30" Width="110" Content="Select Directory" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,75,0,0" Click="Add_Directory_Button_Click"/>
             <Button Name="AddRepoButton" BorderBrush="SteelBlue" BorderThickness="2" Background="LightGray" Height="30" Width="110" Content="Add Repo" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,115,10,0" Click="AddRepo_Button_OnClick"/>
             <Button Name="ManualUpdateButton" BorderBrush="SteelBlue" BorderThickness="2" Background="LightGray" Height="30" Width="110" Content="Manual Update" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="15,0,0,15" Click="ManualUpdate_Button_Click"/>
-            <Button Content="Button" HorizontalAlignment="Left" Margin="231,170,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_1"/>
         </Grid>
         <Grid x:Name="CenterRightGrid" Grid.Column="1" Grid.Row="1" Background="LightGray" Grid.RowSpan="2">
             <ScrollViewer Name="TrackedRepoView">

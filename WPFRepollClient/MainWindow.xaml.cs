@@ -183,15 +183,5 @@ namespace WPFRepollClient
         {
             OutputTextBlock.Text += newOutput + "\n";
         }
-
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-            string uri = "net.tcp://localhost:6565/RepollService";
-            NetTcpBinding binding = new NetTcpBinding(SecurityMode.None);
-            var channel = new ChannelFactory<IWCFRepollService>(binding);
-            var endpoint = new EndpointAddress(uri);
-            var proxy = channel.CreateChannel(endpoint);
-            WriteToOutput(proxy.TestCmd());
-        }
     }
 }
