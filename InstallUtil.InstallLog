@@ -66,3 +66,10 @@ The file is located at C:\Users\clark\Documents\Projects\Repoll\RepollService\bi
 The Rollback phase completed successfully.
 
 The transacted install has completed.
+
+
+The uninstall is beginning.
+See the contents of the log file for the C:\Users\clark\Documents\Projects\Repoll\RepollService\bin\Debug\RepollService.exe assembly's progress.
+The file is located at C:\Users\clark\Documents\Projects\Repoll\RepollService\bin\Debug\RepollService.InstallLog.
+
+The uninstall has completed.

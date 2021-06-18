@@ -14,8 +14,12 @@ namespace RepollInterfaces
         [OperationContract]
         List<Tuple<string,string>> GetTrackedRepos();
         [OperationContract]
-        bool SubmitTrackedRepo(string nickname, string directory);
+        Tuple<bool, string> SubmitTrackedRepo(string nickname, string directory);
         [OperationContract]
-        List<string> GitPull();
+        Tuple<bool, string> RemoveTrackedRepo(Tuple<string, string> tuple);
+        [OperationContract]
+        string ManualUpdate(string cmd);
+        [OperationContract]
+        string TestCmd();
     }
 }

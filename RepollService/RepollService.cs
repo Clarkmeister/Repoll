@@ -71,6 +71,14 @@ namespace RepollService
                 repollEventLog.WriteEntry(e.Message, EventLogEntryType.Error, eventId++);
             }
 
+            var cmd = "";
+            foreach (var item in repos)
+            {
+                cmd += $"echo {item.Item1}: && cd {item.Item2} && git pull";
+                RunCommand.RunCmdAndGetOutput(cmd);
+                cmd = "";
+            }
+
             //Start Service Listener
             try
             {
