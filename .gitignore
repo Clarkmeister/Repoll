@@ -3,6 +3,7 @@
 
 #Batch Files
 .bat
+*packages.config
 
 # User-specific files
 *.suo
