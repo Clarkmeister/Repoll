@@ -40,6 +40,7 @@ namespace RepollService
             // 
             // repollInstaller
             // 
+            this.repollInstaller.DelayedAutoStart = true;
             this.repollInstaller.Description = "Service that updates selected git repos by performing a git pull.";
             this.repollInstaller.DisplayName = "Repoll";
             this.repollInstaller.ServiceName = "RepollService";

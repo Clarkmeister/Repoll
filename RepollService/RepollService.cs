@@ -73,7 +73,8 @@ namespace RepollService
             foreach (var item in repos)
             {
                 cmd += $"echo {item.Item1}: && cd {item.Item2} && git pull";
-                RunCommand.RunCmdAndGetOutput(cmd);
+                var output = RunCommand.RunCmdAndGetOutput(cmd);
+                repollEventLog.WriteEntry(output, EventLogEntryType.Information, eventId++);
                 cmd = "";
             }
 
@@ -124,21 +125,6 @@ namespace RepollService
             // Update the service state to Stopped.
             UpdateServiceState(ServiceState.SERVICE_STOPPED);
         }
-        protected override void OnCustomCommand(int command)
-        {
-            repollEventLog.WriteEntry("Command Recieved", EventLogEntryType.Information, eventId++);
-            switch (command)
-            {
-                case (int)SimpleServiceCustomCommands.RestartWorker:
-                    repollEventLog.WriteEntry("RestartWorker", EventLogEntryType.Information, eventId++);
-                    break;
-                case (int)SimpleServiceCustomCommands.CheckWorker:
-                    repollEventLog.WriteEntry("CheckWorker", EventLogEntryType.Information, eventId++);
-                    break;
-                default:
-                    break;
-            }
-        }
 
         public enum ServiceState
         {
@@ -172,32 +158,5 @@ namespace RepollService
             serviceStatus.dwWaitHint = dwWaitHint;
             SetServiceStatus(this.ServiceHandle, ref serviceStatus);
         }
-
-        /* //Unused Methods:
-        protected override void OnPause()
-        {
-            repollEventLog.WriteEntry("In OnContinue.");
-        }
-        protected override void OnContinue()
-        {
-            repollEventLog.WriteEntry("In OnContinue.");
-        }
-        protected override void OnShutdown()
-        {
-            repollEventLog.WriteEntry("In OnContinue.");
-        }
-*/
-        //private void SetTimer()
-        //{
-        //    Timer timer = new Timer();
-        //    timer.Interval = 60000; // 60 seconds
-        //    timer.Elapsed += new ElapsedEventHandler(this.OnTimer);
-        //    timer.Start();
-        //}
-
-        //private void OnTimer(object sender, ElapsedEventArgs e)
-        //{
-        //    repollEventLog.WriteEntry("Monitoring the System", EventLogEntryType.Information, eventId++);
-        //}
     }
 }
