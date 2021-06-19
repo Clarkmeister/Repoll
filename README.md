@@ -1,7 +1,7 @@
 # Repoll
 A service that automatically keeps selected projects up to date with git repositories on system startup.
 
-Use Case: If a person frequently work on a project using multiple different computers this app can help keep your projects up to date with your repos.
+Use Case: If a person frequently works on a project using multiple different computers this app can help keep your projects up to date with your repos.
 
 # Windows Setup Instructions:
 
