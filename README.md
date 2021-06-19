@@ -5,13 +5,14 @@ Use Case: If a person frequently work on a project using multiple different comp
 
 # Windows Setup Instructions:
 
-1. Build Project
-2. Run (As Administrator) InstallService.bat
-3. Run (As Administrator) WPFRepollClient.exe from WPFRepollClient bin directories or Run from Visual Studio (As Administrator)
+1. Open solution in Visual Studio and Install NewtonSoft.Json package from Nuget if errors show in solution.
+2. Build Project
+3. Run as Administrator InstallService.bat (Path to VsDevCmd.bat may need to be changed.)
+4. Run as Administrator Visual Studio with Repoll Client as Startup Project.
 
 # Windows Uninstall Instructions:
 
-1. Run (As Administrator) UninstallService.bat
+1. Run as Administrator UninstallService.bat (Path to VsDevCmd.bat may need to be changed.)
 
 *Administrator rights needed to start/stop/install/uninstall Windows Service
 
