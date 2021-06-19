@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPFRepollClient"
         mc:Ignorable="d"
-        Title="Repoll" Topmost="True"
+        Title="Repoll"
         Height="500" Width="800" Background="White"  WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize" Loaded="MainWindow_isLoaded">
     <Grid>
         <Grid.ColumnDefinitions>
